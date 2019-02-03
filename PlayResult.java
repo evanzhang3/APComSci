@@ -1,0 +1,4 @@
+
+public enum PlayResult {
+	BANKRUPT, LOSE_TURN, COMPLETE_SENTENCE, GAIN_MONEY, TRY_AGAIN;
+}
