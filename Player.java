@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public abstract class Player {
-	protected Scorecard mScoreCard;
+	public Scorecard mScoreCard;
 	protected Board mBoard;
 	protected Wheel mWheel;
 	protected String mName;
@@ -79,4 +79,8 @@ public abstract class Player {
 	public String getName() {
 		return mName; 
 	}
+	public int getBalence() {
+		return mScoreCard.getBalence();
+	}
+	
 }

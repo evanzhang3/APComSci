@@ -138,9 +138,23 @@ public class GameController {
 					playerRotation = 0; 
 				}
 			}
-			System.out.println(players[playerRotation].getName() + " guessed the phrase");
 			System.out.println("Next Round!");
 			roundCounter++;
+		}
+		if(numberOfHumanPlayers + numberOfComputerPlayers == 2) {
+			if(players[0].getBalence() < players[1].getBalence()) {
+				System.out.println(players[0].getName() + " is the winner");
+			} else {
+				System.out.println(players[0].getName() + " is the winner");
+			}
+		} else if(numberOfHumanPlayers + numberOfComputerPlayers == 3) {
+			if(players[0].getBalence() > players[1].getBalence() && players[0].getBalence() > players[2].getBalence()) {
+				System.out.println(players[0].getBalence() + " is the winner");
+			} else if(players[1].getBalence() > players[0].getBalence() && players[1].getBalence() > players[2].getBalence()) {
+				System.out.println(players[1].getName() + " is the winner");
+			} else {
+				System.out.println(players[2].getName() + " is the winner");
+			}
 		}
 	}
 }

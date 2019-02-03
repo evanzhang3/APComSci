@@ -16,7 +16,7 @@ public class HumanPlayer extends Player {
 						playResult != PlayResult.TRY_AGAIN) {
 					return playResult;
 				} 
-			} else if(userInput.equalsIgnoreCase("Buy a Voweel")) {
+			} else if(userInput.equalsIgnoreCase("Buy a Vowel")) {
 				System.out.println("What vowel do you want to buy?");
 				String userVowel = sc.nextLine();
 				BuyVowelResult buyVowelResult = buyVowel(userVowel);
@@ -28,14 +28,14 @@ public class HumanPlayer extends Player {
 				System.out.println("What phrase do you want to guess?");
 				String userString = sc.nextLine();
 				if(completeSentence(userString)) {
-					System.out.println(mName +" guessed the phrase");
+					System.out.println(mName + " guessed the phrase");
 					return PlayResult.COMPLETE_SENTENCE;
 				} else {
 					System.out.println(mName +" guess is wrong and you lose your turn");
 					return PlayResult.LOSE_TURN;
 				}
 			} else {
-				System.out.println("Choose one of the three options");
+				System.out.println(mName + " choose one of the three options");
 			}
 		}
 	}
