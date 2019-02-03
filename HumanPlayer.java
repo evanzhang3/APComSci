@@ -16,7 +16,7 @@ public class HumanPlayer extends Player {
 						playResult != PlayResult.TRY_AGAIN) {
 					return playResult;
 				} 
-			} else if(userInput.equalsIgnoreCase("Buy a Vowel")) {
+			} else if(userInput.equalsIgnoreCase("Buy a Voweel")) {
 				System.out.println("What vowel do you want to buy?");
 				String userVowel = sc.nextLine();
 				BuyVowelResult buyVowelResult = buyVowel(userVowel);
