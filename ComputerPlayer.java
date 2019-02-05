@@ -21,6 +21,7 @@ public class ComputerPlayer extends Player{
 				if(mBoard.getVowelsSize() < 5 && mScoreCard.getBalence() >= 250) {
 					int randomAction = rand.nextInt(10);
 					if(randomAction < 5) {
+						System.out.println("Computer guessing char");
 						int spinResult = mWheel.spinWheel();
 						if(spinResult == 1) {
 							mScoreCard.resetBalence();
@@ -36,49 +37,59 @@ public class ComputerPlayer extends Player{
 							if(!isVowel(randomChar)) {
 								if(mBoard.checkBoard(randomChar)) {
 									mScoreCard.add(spinResult);
+									System.out.println(mName + " just guessed the letter " + randomChar);
+									System.out.println(mBoard.getPhraseString());
 								} else {
-									System.out.println(mName + " just guessed the letter");
+									System.out.println(mName + " just guessed the letter " + randomChar);
+									System.out.println("Computer lose turn");
 									return PlayResult.LOSE_TURN;
 								}
 							}
 						}
 					} else {
+						System.out.println("Computer guessing vowel");
 						int remainingVowelSize = mBoard.getRemaingVowels().size();
 						int randomVowelIndex = rand.nextInt(remainingVowelSize);
 						String randomVowel = mBoard.getRemainingChars().get(randomVowelIndex).toString();
 						if(mScoreCard.buyVowel()) {
 							if(!mBoard.checkBoard(randomVowel)) {
+								System.out.println(mName + " just guessed the letter " + randomVowel);
+								System.out.println("Computer lose turn");
 								return PlayResult.LOSE_TURN;
+							} else {
+								System.out.println(mName + " just guessed the letter " + randomVowel);
+								System.out.println(mBoard.getPhraseString());
 							}
 						}
 					}
 				} else {
-//					int randomAction = rand.nextInt(10);
-//					if(randomAction < 5) {
-						int spinResult = mWheel.spinWheel();
-						if(spinResult == 1) {
-							mScoreCard.resetBalence();
-							System.out.println(mName + " is bankrupt");
-							return PlayResult.BANKRUPT; 
-						} else if(spinResult == 2) {
-							System.out.println(mName + " just losted their turn");
-							return PlayResult.LOSE_TURN; 
-						} else {
-							int remainingCharsSize = mBoard.getRemainingChars().size();
-							int randomCharIndex = rand.nextInt(remainingCharsSize);
-							String randomChar = mBoard.getRemainingChars().get(randomCharIndex).toString();
-							if(!isVowel(randomChar)) {
-								if(mBoard.checkBoard(randomChar)) {
-									System.out.println(mName + " just guessed the letter");
-									mScoreCard.add(spinResult);
-								} else {
-									return PlayResult.LOSE_TURN;
-								}
+					System.out.println("Computer guesing char");
+					int spinResult = mWheel.spinWheel();
+					if(spinResult == 1) {
+						mScoreCard.resetBalence();
+						System.out.println(mName + " is bankrupt");
+						return PlayResult.BANKRUPT; 
+					} else if(spinResult == 2) {
+						System.out.println(mName + " just losted their turn");
+						return PlayResult.LOSE_TURN; 
+					} else {
+						int remainingCharsSize = mBoard.getRemainingChars().size();
+						int randomCharIndex = rand.nextInt(remainingCharsSize);
+						String randomChar = mBoard.getRemainingChars().get(randomCharIndex).toString();
+						if(!isVowel(randomChar)) {
+							if(mBoard.checkBoard(randomChar)) {
+								System.out.println(mName + " just guessed the letter " + randomChar);
+								System.out.println(mBoard.getPhraseString());
+								mScoreCard.add(spinResult);
+							} else {
+								System.out.println(mName + " just guessed the letter " + randomChar);
+								return PlayResult.LOSE_TURN;
 							}
 						}
-//					}
+					}
 				}
 			} else {
+				System.out.println("computer guessing phrase");
 				String answerToBeGuessed = mBoard.getAnswerKeyString();
 				if(completeSentence(answerToBeGuessed)) {
 					return PlayResult.COMPLETE_SENTENCE;
