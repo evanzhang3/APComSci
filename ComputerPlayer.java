@@ -53,8 +53,8 @@ public class ComputerPlayer extends Player{
 						}
 					}
 				} else {
-					int randomAction = rand.nextInt(10);
-					if(randomAction < 5) {
+//					int randomAction = rand.nextInt(10);
+//					if(randomAction < 5) {
 						int spinResult = mWheel.spinWheel();
 						if(spinResult == 1) {
 							mScoreCard.resetBalence();
@@ -76,7 +76,7 @@ public class ComputerPlayer extends Player{
 								}
 							}
 						}
-					}
+//					}
 				}
 			} else {
 				String answerToBeGuessed = mBoard.getAnswerKeyString();

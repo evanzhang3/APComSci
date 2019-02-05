@@ -40,7 +40,8 @@ public abstract class Player {
 					return PlayResult.GAIN_MONEY;
 				} else {
 					System.out.println(mName + " guess was not in the phrase");
-					System.out.println(mName + "did not earn" + spinResult + " dollers");
+					System.out.println(mName + " did not earn " + spinResult + " dollers");
+					System.out.println(mName + " just losted your turn");
 					return PlayResult.LOSE_TURN;
 				}
 			} else {
