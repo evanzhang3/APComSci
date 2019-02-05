@@ -20,9 +20,11 @@ public class HumanPlayer extends Player {
 				System.out.println("What vowel do you want to buy?");
 				String userVowel = sc.nextLine();
 				BuyVowelResult buyVowelResult = buyVowel(userVowel);
-				if(buyVowelResult != BuyVowelResult.IN_PHRASE || 
-						buyVowelResult != BuyVowelResult.NOT_ENOUGH_MONEY) {
+				if(buyVowelResult == BuyVowelResult.NOT_IN_PHRASE || 
+						buyVowelResult == BuyVowelResult.NOT_ENOUGH_MONEY) {
 					return PlayResult.LOSE_TURN;
+				} else {
+					System.out.println(mBoard.getPhraseString());
 				}
 			} else if(userInput.equalsIgnoreCase("Guess a Phrase")){
 				System.out.println("What phrase do you want to guess?");

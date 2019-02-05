@@ -19,8 +19,10 @@ public abstract class Player {
 		System.out.println(mName + " could win " + spinResult + " dollers");
 		if(spinResult == 1) {
 			mScoreCard.resetBalence();
+			System.out.println(mName + " just spun bankrupt");
 			return PlayResult.BANKRUPT; 
 		} else if(spinResult == 2) {
+			System.out.println(mName + " just losted their turn");
 			return PlayResult.LOSE_TURN; 
 		} else {
 			System.out.println("What consonant do you want to guess?");

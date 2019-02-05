@@ -156,5 +156,6 @@ public class GameController {
 				System.out.println(players[2].getName() + " is the winner");
 			}
 		}
+		System.out.println("End of Program");
 	}
 }
