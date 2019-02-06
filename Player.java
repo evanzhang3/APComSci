@@ -17,12 +17,15 @@ public abstract class Player {
 		int spinResult = mWheel.spinWheel();
 		if(spinResult != 1 && spinResult != 2)
 		System.out.println(mName + " could win " + spinResult + " dollers");
+		System.out.println();
 		if(spinResult == 1) {
 			mScoreCard.resetBalence();
 			System.out.println(mName + " just spun bankrupt");
+			System.out.println();
 			return PlayResult.BANKRUPT; 
 		} else if(spinResult == 2) {
 			System.out.println(mName + " just losted their turn");
+			System.out.println();
 			return PlayResult.LOSE_TURN; 
 		} else {
 			System.out.println("What consonant do you want to guess?");
@@ -45,7 +48,7 @@ public abstract class Player {
 					return PlayResult.LOSE_TURN;
 				}
 			} else {
-				System.out.println("Guess a vowel");
+				System.out.println("Please guess a vowel");
 			}
 		}
 		return PlayResult.TRY_AGAIN;
@@ -60,20 +63,21 @@ public abstract class Player {
 		if(mScoreCard.buyVowel()) {
 			if(mBoard.checkBoard(selectedVowel)) {
 				System.out.println(selectedVowel + " is in the phrase");
-//				System.out.println("Chicken");
+				System.out.println();
 				return BuyVowelResult.IN_PHRASE;
 			} else {
-				System.out.println("Vowel not in phrase");
+				System.out.println(selectedVowel + " is not in phrase");
 				return BuyVowelResult.NOT_IN_PHRASE;
 			}
 		} else {
-			System.out.println( mName + " do not have enough money");
+			System.out.println( mName + " does not have enough money");
 		}
 		return BuyVowelResult.NOT_ENOUGH_MONEY; 
 	}
 	public boolean completeSentence(String guessedPhrase) {
 		if(mBoard.getAnswerKeyString().equalsIgnoreCase(guessedPhrase)) {
 			System.out.println("The phrase was " + mBoard.getAnswerKeyString());
+			System.out.println();
 			return true;
 		} else {
 			return false; 

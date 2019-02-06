@@ -8,6 +8,7 @@ public class HumanPlayer extends Player {
 	public PlayResult play() {
 		while(true) {
 			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers");
+			System.out.println();
 			System.out.println("What action do you want to preform? (Enter Spin Wheel, Buy a Vowel, or Guess a Phrase)");
 			String userInput = sc.nextLine();
 			if(userInput.equalsIgnoreCase("Spin Wheel")) {
@@ -17,6 +18,7 @@ public class HumanPlayer extends Player {
 					return playResult;
 				} 
 			} else if(userInput.equalsIgnoreCase("Buy a Vowel")) {
+				System.out.println();
 				System.out.println("What vowel do you want to buy?");
 				String userVowel = sc.nextLine();
 				BuyVowelResult buyVowelResult = buyVowel(userVowel);
@@ -27,16 +29,20 @@ public class HumanPlayer extends Player {
 					System.out.println(mBoard.getPhraseString());
 				}
 			} else if(userInput.equalsIgnoreCase("Guess a Phrase")){
+				System.out.println();
 				System.out.println("What phrase do you want to guess?");
 				String userString = sc.nextLine();
 				if(completeSentence(userString)) {
 					System.out.println(mName + " guessed the phrase");
+					System.out.println();
 					return PlayResult.COMPLETE_SENTENCE;
 				} else {
 					System.out.println(mName +" guess is wrong and you lose your turn");
+					System.out.println();
 					return PlayResult.LOSE_TURN;
 				}
 			} else {
+				System.out.println();
 				System.out.println(mName + " choose one of the three options");
 			}
 		}

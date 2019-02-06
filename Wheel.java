@@ -18,10 +18,6 @@ public class Wheel {
 	}
 	public int spinWheel() {
 		valueToGet = rand.nextInt(21);
-//		if(valueToGet == 1) {
-//		} else if(valueToGet == 2) {
-//		} else {
-//		}
 		return mWheelValue.get(valueToGet);
 	}
 	public ArrayList<Integer> getWheelValues() {

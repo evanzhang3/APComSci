@@ -5,13 +5,6 @@ public class GameController {
 	public static void main(String[] args) {
 		int numberOfHumanPlayers;
 		int numberOfComputerPlayers;
-		String humanPlayer1;
-		String humanPlayer2; 
-		String humanPlayer3;
-		String computerPlayer1;
-		int computer1Difficulty;
-		String computerPlayer2;
-		int computer2Difficulty;
 		int roundCounter = 0; 
 		Player[] players;
 		int playerRotation;
@@ -19,7 +12,7 @@ public class GameController {
 		int indexCounter = 0; 
 		Scanner sc = new Scanner(System.in);
 		Wheel wheel = new Wheel();
-		Board board = new Board("D:\\ComSci_Wheel_Of_Fortune_Project\\ComSciProject.txt");
+		Board board = new Board("./src/PhraseBank");
 		System.out.println("Welcome To Wheel Of Fortune!!!");
 		while(true) {
 			System.out.println("How many human players are there? Note: Max of three players");
@@ -36,85 +29,29 @@ public class GameController {
 				break;
 			}
 		}
-		if(numberOfHumanPlayers == 1) {
-			System.out.println("What is the name of the human player?");
-			humanPlayer1 = sc.nextLine();
-			Player humanPlayerOne = new HumanPlayer(board,wheel, humanPlayer1);
-			for(int i = 0; i < numberOfHumanPlayers; i++) {
-				players[i] = (HumanPlayer) humanPlayerOne;
-				indexCounter++;
-			}
-		} else if(numberOfHumanPlayers == 2){
-			System.out.println("What is the name of the first human player?");
-			humanPlayer1 = sc.nextLine();
-			Player humanPlayerOne = new HumanPlayer(board, wheel, humanPlayer1);
-			System.out.println("What is the name of the second human player");
-			humanPlayer2 = sc.nextLine(); 
-			Player humanPlayerTwo = new HumanPlayer(board, wheel, humanPlayer2);
-			for(int i = 0; i < numberOfHumanPlayers; i++) {
-				if(i == 1)
-					players[i] = (HumanPlayer) humanPlayerOne;
-				indexCounter++;
-				if(i == 2)
-					players[i] = (HumanPlayer) humanPlayerTwo;
-				indexCounter++; 
-			}
-		} else if(numberOfHumanPlayers == 3) {
-			System.out.println("What is the name of the first human player?");
-			humanPlayer1 = sc.nextLine();
-			Player humanPlayerOne = new HumanPlayer(board, wheel, humanPlayer1);
-			System.out.println("What is the name of the second human player");
-			humanPlayer2 = sc.nextLine(); 
-			Player humanPlayerTwo = new HumanPlayer(board, wheel, humanPlayer2);
-			System.out.println("What is the name of the second human player");
-			humanPlayer3 = sc.nextLine(); 
-			Player humanPlayerThree = new HumanPlayer(board, wheel, humanPlayer3);
-			for(int i = 0; i < numberOfHumanPlayers; i++) {
-				if(i == 1)
-					players[i] = (HumanPlayer) humanPlayerOne;
-				indexCounter++; 
-				if(i == 2)
-					players[i] = (HumanPlayer) humanPlayerTwo;
-				indexCounter++; 
-				if(i == 3)
-					players[i] = (HumanPlayer) humanPlayerThree;
-				indexCounter++; 
-			}
+
+		//creates human players
+		for(int i = 0; i < numberOfHumanPlayers; i++) {
+			System.out.print("\nEnter the name of human player number " + i+1 + ": ");
+			String humanName = sc.nextLine();
+			players[indexCounter] = new HumanPlayer(board, wheel, humanName);
+			indexCounter++; 
 		}
-		if(numberOfComputerPlayers == 1) {
-			System.out.println("What is the name of the computer Player?");
-			computerPlayer1 = sc.nextLine();
-			System.out.println("What is the level of diffuculty of this computer player?");
-			computer1Difficulty = sc.nextInt();
-			Player computerPlayerOne = new ComputerPlayer(board, wheel, computer1Difficulty, computerPlayer1);
-			sc.nextLine();
-			for(int i = 0; i < numberOfComputerPlayers; i++) {
-				players[i + indexCounter] = (ComputerPlayer) computerPlayerOne;
-				indexCounter++; 
-			} 
-		} else if(numberOfComputerPlayers == 2) {
-			System.out.println("What is the name of the first computer Player?");
-			computerPlayer1 = sc.nextLine();
-			System.out.println("What is the level of diffuculty of the first computer player?");
-			computer1Difficulty = sc.nextInt();
-			sc.nextLine();
-			Player computerPlayerOne = new ComputerPlayer(board, wheel, computer1Difficulty, computerPlayer1);
-			System.out.println("What is the name of the second computer Player?");
-			computerPlayer2 = sc.nextLine();
-			System.out.println("What is the level of diffuculty of the second computer player?");
-			computer2Difficulty = sc.nextInt();
-			sc.nextLine();
-			Player computerPlayerTwo = new ComputerPlayer(board, wheel, computer2Difficulty, computerPlayer2);
-			for(int i = 0; i < numberOfComputerPlayers; i++) {
-				if(i == 1)
-					players[i + indexCounter] = (ComputerPlayer) computerPlayerOne;
-				indexCounter++; 
-				if(i == 2)
-					players[i + indexCounter] = (ComputerPlayer) computerPlayerTwo;
-				indexCounter++; 
-			}
+		
+		//creates computer players
+		for(int i = 0; i < numberOfComputerPlayers; i++) {
+
+			System.out.print("\nEnter the name of computer player number " + i+1 + ": ");
+			String computerName = sc.nextLine();
+			System.out.println();
+			System.out.print("Enter the skill level of computer player number " + i+1 + " (1:beginner  2:average  3:master): ");
+			int computerSkill = sc.nextInt();
+			sc.nextLine(); 
+			players[indexCounter] = new ComputerPlayer(board, wheel, computerSkill, computerName);
+			indexCounter++; 
 		}
-		System.out.println("How many rounds do you want to play?");
+		
+		System.out.print("\nHow many rounds do you want to play: ");
 		int numberOfRounds = sc.nextInt();
 		sc.nextLine();
 		System.out.println("Start of game");

@@ -133,4 +133,7 @@ public class Board {
 	public ArrayList<Character> getRemaingVowels() {
 		return mRemainingVowels;
 	}
+	public ArrayList<Character> getIncorrectLetters() {
+		return mIncorrectLetters;
+	}
 }
