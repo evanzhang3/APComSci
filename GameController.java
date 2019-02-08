@@ -83,7 +83,7 @@ public class GameController {
 		while(roundCounter < numberOfRounds) {
 			playerRotation = 0; 
 			for(int i = 0; i < players.length; i++) {
-				System.out.println(players[i].getName() + " has " + players[i].getName() + " this game");
+				System.out.println(players[i].getName() + " has " + players[i].getBalence() + " dollers this game");
 			}
 			while(true) {
 				System.out.println(board.getPhraseString());
