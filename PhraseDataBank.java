@@ -22,7 +22,9 @@ public class PhraseDataBank {
 			if((line = bufferedReader.readLine()) != null) {
 				try {
 					mLineNumber = Integer.parseInt(line);
-					System.out.println(line);
+					if (GameController.DBG_MODE) {
+						System.out.println("Will Read from PhraseBank file at line: " + line);
+					}
 				} catch (NumberFormatException e) {
 					System.out.println("First Line of text file is not a number");
 				}

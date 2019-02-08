@@ -2,7 +2,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameController {
-
+	public static final boolean DBG_MODE = true;
+	public static final String PhraseBankFile = "./src/PhraseBank";
+	
 	public static void main(String[] args) {
 		int numberOfHumanPlayers;
 		int numberOfComputerPlayers;
@@ -13,18 +15,18 @@ public class GameController {
 		int indexCounter = 0; 
 		int computerSkill = 0; 
 		int numberOfRounds = 0; 
-		//make scanner wheel class and board class
+		//create scanner wheel and board objects
 		Scanner sc = new Scanner(System.in);
 		Wheel wheel = new Wheel();
-		Board board = new Board("./src/PhraseBank");
+		Board board = new Board(PhraseBankFile);
 		System.out.println("Welcome To Wheel Of Fortune!!!");
 		
 		//ask for the number of players 
 		while(true) {
-			System.out.println("How many human players are there? Note: Max of three players");
+			System.out.println("How many human players are there? (Max of three players): ");
 			numberOfHumanPlayers = sc.nextInt();
 			sc.nextLine();
-			System.out.println("How many computer players are there? Note: Max of three players");
+			System.out.println("How many computer players are there? (Max of three players): ");
 			numberOfComputerPlayers = sc.nextInt();
 			sc.nextLine();
 			if(numberOfHumanPlayers + numberOfComputerPlayers > 3) {
@@ -38,7 +40,7 @@ public class GameController {
 
 		//creates human players puts into array
 		for(int i = 0; i < numberOfHumanPlayers; i++) {
-			System.out.print("\nEnter the name of human player number " + Integer.toString(i+1) + ": ");
+			System.out.print("\nEnter the name of human player #" + Integer.toString(i+1) + ": ");
 			String humanName = sc.nextLine();
 			players[indexCounter] = new HumanPlayer(board, wheel, humanName);
 			indexCounter++; 
@@ -47,11 +49,11 @@ public class GameController {
 		//creates computer players puts into array 
 		for(int i = 0; i < numberOfComputerPlayers; i++) {
 
-			System.out.print("\nEnter the name of computer player number " + Integer.toString(i+1) + ": ");
+			System.out.print("\nEnter the name of computer player #" + Integer.toString(i+1) + ": ");
 			String computerName = sc.nextLine();
 			System.out.println();
 			while(true) {
-				System.out.print("Enter the skill level of computer player number " + 
+				System.out.print("Enter the skill level of computer player #" + 
 						Integer.toString(i+1) + " (1:beginner  2:average  3:master): ");
 				computerSkill = sc.nextInt();
 				sc.nextLine(); 
@@ -76,9 +78,11 @@ public class GameController {
 			}
 		}
 		// starts the game 
-		System.out.println("Start of game");
+		System.out.println("\n------------------- Start of game ------------------\n");
 		board.generateSecretSentence();
-		System.out.println(board.getAnswerKeyString()); // debug
+		if (DBG_MODE) {
+			System.out.println("Secrete sentence: " + board.getAnswerKeyString());
+		}
 		//rotates through the different players 
 		while(roundCounter < numberOfRounds) {
 			playerRotation = 0; 
@@ -133,7 +137,7 @@ public class GameController {
 			System.out.println("Next Round!");
 			roundCounter++;
 		}
-		//determines who wins after thr number of rounds based on the amount of money they have  
+		//determines who wins after the number of rounds based on the amount of money they have  
 		if(numberOfHumanPlayers + numberOfComputerPlayers == 2) {
 			if(players[0].getBalence() < players[1].getBalence()) {
 				System.out.println(players[1].getName() + " is the winner");
