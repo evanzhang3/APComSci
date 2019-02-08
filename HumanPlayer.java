@@ -7,7 +7,7 @@ public class HumanPlayer extends Player {
 	}
 	public PlayResult play() {
 		while(true) {
-			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers");
+			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers this round");
 			System.out.println();
 			System.out.println("What action do you want to preform? (Enter Spin Wheel, Buy a Vowel, or Guess a Phrase)");
 			String userInput = sc.nextLine();

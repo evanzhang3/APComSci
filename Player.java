@@ -89,5 +89,14 @@ public abstract class Player {
 	public int getBalence() {
 		return mScoreCard.getBalence();
 	}
+	public void updateRoundAdd() {
+		mScoreCard.addFinalBalence();
+	}
+	public void updateRoundZero() {
+		mScoreCard.resetBalence();
+	}
+	public int getMoney() {
+		return mScoreCard.getBalence();
+	}
 	
 }

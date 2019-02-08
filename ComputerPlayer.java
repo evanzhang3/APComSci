@@ -18,7 +18,7 @@ public class ComputerPlayer extends Player{
 	}
 	public PlayResult play() {
 		while(true) {
-			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers");
+			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers this round");
 			System.out.println();
 			if(mBoard.getNumberOfGuessedChars() / mBoard.getAnswerKeySize() < mComputerGuess) {
 				if(mBoard.getVowelsSize() < 5 && mScoreCard.getBalence() >= 250) {

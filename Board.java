@@ -9,6 +9,7 @@ public class Board {
 	private ArrayList<Character> mVowels;
 	private ArrayList<Character> mRemainingChars;
 	private ArrayList<Character> mRemainingVowels;
+	//creates all the array lists 
 	public Board(String fileName) {
 		mPhraseBank = new PhraseDataBank(fileName);
 		mAnswerKey = new ArrayList<Character>();
@@ -19,7 +20,9 @@ public class Board {
 		mRemainingChars = new ArrayList<Character>();
 		mRemainingVowels = new ArrayList<Character>();
 	}
-
+	// generates phrase at the start of every round
+	// resets all the array lists 
+	//returns the phrase as an array list 
 	public ArrayList<Character> generateSecretSentence() {
 		mRemainingChars.clear();
 		mAnswerKey.clear();
@@ -51,6 +54,7 @@ public class Board {
 		mPhraseBank.changeStartingLine();
 		return mPhrase;
 	}
+	//checks if a character is already guessed before 
 	public boolean alreadyGuessed(String inputChar) {
 		boolean alreadyGuessed = false;
 		for(char a: mGuessedChars) {
@@ -61,6 +65,7 @@ public class Board {
 		}
 		return alreadyGuessed;
 	}
+	//checks the board if a guessed character is in the phrase 
 	public boolean checkBoard(String inputChar) {
 		if(mAnswerKey.contains(inputChar.toUpperCase().charAt(0))) {
 			for(int i = 0; i < mAnswerKey.size(); i++) {
@@ -86,6 +91,7 @@ public class Board {
 			return false;
 		}
 	}
+	//checks if the character is part of the phrase 
 	public boolean isGuessedCorrect(String inputString) {
 		if(mAnswerKey.toString().equalsIgnoreCase(inputString)) {
 			return true;
@@ -93,6 +99,7 @@ public class Board {
 			return false; 
 		}
 	}
+	//returns answer key as a string 
 	public String getAnswerKeyString() {
 		StringBuffer sb = new StringBuffer();
 		for(char c: mAnswerKey) {
@@ -100,6 +107,7 @@ public class Board {
 		}
 		return sb.toString(); 
 	}
+	//returns the phrase as a string 
 	public String getPhraseString() {
 		StringBuffer sb = new StringBuffer();
 		for(char c: mPhrase) {
@@ -107,6 +115,7 @@ public class Board {
 		}
 		return sb.toString(); 
 	}
+	//returns the incorrect letters as a string 
 	public String getIncorrectLettersString() {
 		StringBuffer sb = new StringBuffer();
 		for(char c: mIncorrectLetters) {
@@ -115,24 +124,31 @@ public class Board {
 		}
 		return sb.toString(); 
 	}
+	//returns the number of guessed chars 
 	public int getNumberOfGuessedChars() {
 		return mGuessedChars.size();
 	}
+	// returns the size of the answer key as a integer
 	public int getAnswerKeySize() {
 		return mAnswerKey.size();
 	}
+	// returns the size of the vowel array list 
 	public int getVowelsSize() {
 		return mVowels.size();
 	}
+	// returns the vowel aray list 
 	public ArrayList<Character> getVowel() {
 		return mVowels;
 	}
+	//returns the remainingchars array list 
 	public ArrayList<Character> getRemainingChars() {
 		return mRemainingChars;
 	}
+	//returns the remaining vowel array list 
 	public ArrayList<Character> getRemaingVowels() {
 		return mRemainingVowels;
 	}
+	//returns incorrect letters array list 
 	public ArrayList<Character> getIncorrectLetters() {
 		return mIncorrectLetters;
 	}
