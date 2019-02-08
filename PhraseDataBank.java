@@ -6,6 +6,7 @@ public class PhraseDataBank {
 	private String mFileName;
 	private int mLineNumber;
 	private int mBookSize;
+	//constructor 
 	public PhraseDataBank(String fileName) {
 		mPhrases = new ArrayList<String>();
 		mFileName = fileName;
@@ -18,22 +19,24 @@ public class PhraseDataBank {
 			FileReader reader = new FileReader(mFileName);
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			// looks at the first line in the text file and goes to that line number (first line of text file is a number)
+			//and checks if it is a number 
 			String line;
 			if((line = bufferedReader.readLine()) != null) {
 				try {
 					mLineNumber = Integer.parseInt(line);
-					if (GameController.DBG_MODE) {
-						System.out.println("Will Read from PhraseBank file at line: " + line);
-					}
+//					if (GameController.DBG_MODE) {
+//						System.out.println("Will Read from PhraseBank file at line: " + line);
+//					}
 				} catch (NumberFormatException e) {
 					System.out.println("First Line of text file is not a number");
 				}
 			}
 			//makes the seret phrase the phrase on that line 
+			//looks at the number at the first line then goes into the file to find the corrosponding phrase 
 			while ((line = bufferedReader.readLine()) != null) {
 				mPhrases.add(line);
 			}
-			mBookSize = mPhrases.size();
+			mBookSize = mPhrases.size(); // gets the size of the phrase 
 			reader.close();
 
 		} catch (IOException e) {
@@ -53,6 +56,7 @@ public class PhraseDataBank {
 			//if the line number is greater then the number of lines in the txt file. 
 			//changes the first number to 1 
 			//else goes to the next line
+			//afterwards rewrites the text file 
 			if(mLineNumber > mBookSize) {
 				bufferedWriter.write(Integer.toString(1));
 				bufferedWriter.newLine();
@@ -69,7 +73,7 @@ public class PhraseDataBank {
 			e.printStackTrace();
 		}
 	}
-	public void printout() {
-		System.out.println(mPhrases);
-	}
+//	public void printout() {
+//		System.out.println(mPhrases);
+//	}
 }
