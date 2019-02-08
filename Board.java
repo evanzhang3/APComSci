@@ -152,4 +152,7 @@ public class Board {
 	public ArrayList<Character> getIncorrectLetters() {
 		return mIncorrectLetters;
 	}
+	public ArrayList<Character> getGuessedChars() {
+		return mGuessedChars;
+	}
 }

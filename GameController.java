@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameController {
-	public static final boolean DBG_MODE = true;
+	public static final boolean DBG_MODE = false;
 	public static final String PhraseBankFile = "./src/PhraseBank";
-	
+
 	public static void main(String[] args) {
 		int numberOfHumanPlayers;
 		int numberOfComputerPlayers;
@@ -15,12 +16,13 @@ public class GameController {
 		int indexCounter = 0; 
 		int computerSkill = 0; 
 		int numberOfRounds = 0; 
+		ArrayList<Integer> winnerList = new ArrayList<Integer>(); // incase there are multiple winners
 		//create scanner wheel and board objects
 		Scanner sc = new Scanner(System.in);
 		Wheel wheel = new Wheel();
 		Board board = new Board(PhraseBankFile);
 		System.out.println("Welcome To Wheel Of Fortune!!!");
-		
+
 		//ask for the number of players 
 		while(true) {
 			System.out.println("How many human players are there? (Max of three players): ");
@@ -53,10 +55,16 @@ public class GameController {
 			String computerName = sc.nextLine();
 			System.out.println();
 			while(true) {
+				try {
 				System.out.print("Enter the skill level of computer player #" + 
 						Integer.toString(i+1) + " (1:beginner  2:average  3:master): ");
 				computerSkill = sc.nextInt();
 				sc.nextLine(); 
+				} catch(InputMismatchException e) {
+					System.out.println("Please enter 1, 2, or 3");
+					sc.nextLine();
+					continue;
+				}
 				if(computerSkill == 1 || computerSkill == 2 || computerSkill ==3) {
 					break;
 				} else {
@@ -74,7 +82,7 @@ public class GameController {
 			} catch(InputMismatchException e) {
 				System.out.print("Please enter valid input");
 				sc.nextLine();
-				
+
 			}
 		}
 		// starts the game 
@@ -100,32 +108,16 @@ public class GameController {
 					//goes to next player 
 					playerRotation++;
 				} else {
-					//if they guess the phrase 
-					board.generateSecretSentence();
-					if(numberOfHumanPlayers + numberOfComputerPlayers == 2) {
-						if(players[0].getBalence() < players[1].getBalence()) {
-							players[1].updateRoundAdd();
-							players[0].updateRoundZero();
+					for(int i = 0; i < players.length; i++) {
+						if(i == playerRotation) {
+							players[playerRotation].updateRoundAdd();
 						} else {
-							players[0].updateRoundAdd();
-							players[1].updateRoundZero();
-						}
-					} else if(numberOfHumanPlayers + numberOfComputerPlayers == 3) {
-						if(players[0].getBalence() > players[1].getBalence() && players[0].getBalence() > players[2].getBalence()) {
-							players[0].updateRoundAdd();
-							players[1].updateRoundZero();
-							players[2].updateRoundZero();
-						} else if(players[1].getBalence() > players[0].getBalence() && players[1].getBalence() > players[2].getBalence()) {
-							players[1].updateRoundAdd();
-							players[0].updateRoundZero();
-							players[2].updateRoundZero();
-						} else {
-							
-							players[2].updateRoundAdd();
-							players[1].updateRoundZero();
-							players[0].updateRoundZero();
+							players[i].updateRoundZero();
 						}
 					}
+
+					//if they guess the phrase 
+					board.generateSecretSentence();
 					break;
 				}
 				// checks if the last person is at the end of the array and if so rotates to the first player in the array 
@@ -134,37 +126,29 @@ public class GameController {
 				}
 			}
 			// goes to next round 
-			System.out.println("Next Round!");
 			roundCounter++;
 		}
 		//determines who wins after the number of rounds based on the amount of money they have  
-		if(numberOfHumanPlayers + numberOfComputerPlayers == 2) {
-			if(players[0].getBalence() < players[1].getBalence()) {
-				System.out.println(players[1].getName() + " is the winner");
-				players[1].updateRoundAdd();
-				players[0].updateRoundZero();
-			} else {
-				System.out.println(players[0].getName() + " is the winner");
-				players[0].updateRoundAdd();
-				players[1].updateRoundZero();
+		int highestCash = players[0].getEndBalence(); 
+		winnerList.add(0);
+		for(int i = 1; i < totalPlayers; i++) {
+			if(players[i].getEndBalence() > highestCash) {
+				winnerList.clear();
+				winnerList.add(i);
+			} else if(players[i].getEndBalence() == highestCash){
+				winnerList.add(i);
 			}
-		} else if(numberOfHumanPlayers + numberOfComputerPlayers == 3) {
-			if(players[0].getBalence() > players[1].getBalence() && players[0].getBalence() > players[2].getBalence()) {
-				System.out.println(players[0].getBalence() + " is the winner");
-				players[0].updateRoundAdd();
-				players[1].updateRoundZero();
-				players[2].updateRoundZero();
-			} else if(players[1].getBalence() > players[0].getBalence() && players[1].getBalence() > players[2].getBalence()) {
-				System.out.println(players[1].getName() + " is the winner");
-				players[1].updateRoundAdd();
-				players[0].updateRoundZero();
-				players[2].updateRoundZero();
-			} else {
-				System.out.println(players[2].getName() + " is the winner");
-				players[2].updateRoundAdd();
-				players[1].updateRoundZero();
-				players[0].updateRoundZero();
+		}
+		if(winnerList.size() == 1) {
+			//single winner 
+			System.out.println(players[winnerList.get(0)].getName() + " is the winner");
+			System.out.println("With a end balence of " + players[winnerList.get(0)].getEndBalence());
+		} else {
+			System.out.print("The winners are: ");
+			for(int i = 0; i < winnerList.size(); i++) {
+				System.out.print(players[winnerList.get(i)].getName() + " ");
 			}
+			System.out.println("With an end balence of " + players[winnerList.get(0)].getEndBalence());
 		}
 		System.out.println("End of Program");
 	}

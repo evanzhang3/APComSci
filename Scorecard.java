@@ -9,7 +9,6 @@ public class Scorecard {
 	}
 	public void add(int a) {
 		balence += a;
-		System.out.println(balence);
 	}
 	public boolean buyVowel() {
 		if(canPurchase()) {
@@ -32,5 +31,8 @@ public class Scorecard {
 			return true;
 		} 
 		return false; 
+	}
+	public int getFinalBalence() {
+		return finalBalence;
 	}
 }

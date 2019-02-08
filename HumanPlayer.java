@@ -9,12 +9,13 @@ public class HumanPlayer extends Player {
 	public PlayResult play() {
 		int actionChosen = 0;
 		while(true) {
-			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers this round\n");
+			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers this round");
 			
 			while(true) {
 				System.out.println("What action do you want to preform? (1: Spin Wheel, 2: Buy a Vowel, 3: Guess a Phrase)");
 				try {
 					actionChosen = sc.nextInt();
+					sc.nextLine(); 
 					if (actionChosen!=1 && actionChosen!=2 && actionChosen!=3) {
 						System.out.println("Please choose a valid action number between 1 and 3.");
 						sc.nextLine();

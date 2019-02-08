@@ -13,18 +13,18 @@ public class ComputerPlayer extends Player{
 		} else if(computerLevel == 2) {
 			mComputerGuess = 0.75;
 		} else {
-			mComputerGuess = 0.4; 
+			mComputerGuess = 0.2; 
 		}
 	}
 	public PlayResult play() {
 		while(true) {
 			System.out.println(mName + " has " + mScoreCard.getBalence() + " dollers this round");
 			System.out.println();
-			if(mBoard.getNumberOfGuessedChars() / mBoard.getAnswerKeySize() < mComputerGuess) {
+			if((double)mBoard.getNumberOfGuessedChars() / mBoard.getAnswerKeySize() < mComputerGuess) {
 				if(mBoard.getVowelsSize() < 5 && mScoreCard.getBalence() >= 250) {
 					int randomAction = rand.nextInt(10);
 					if(randomAction < 5) {
-						System.out.println(mName + " is guessing character");
+						System.out.println(mName + " is guessing a character");
 						System.out.println();
 						int spinResult = mWheel.spinWheel();
 						if(spinResult == 1) {
@@ -60,7 +60,7 @@ public class ComputerPlayer extends Player{
 							}
 						}
 					} else {
-						System.out.println(mName + " is guessing vowel");
+						System.out.println(mName + " is guessing a vowel");
 						while(true) {
 							int remainingVowelSize = mBoard.getRemaingVowels().size();
 							int randomVowelIndex = rand.nextInt(remainingVowelSize);
@@ -84,7 +84,7 @@ public class ComputerPlayer extends Player{
 						}
 					}
 				} else {
-					System.out.println(mName + " is guesing char");
+					System.out.println(mName + " is guessing a character");
 					int spinResult = mWheel.spinWheel();
 					if(spinResult == 1) {
 						mScoreCard.resetBalence();
@@ -116,7 +116,7 @@ public class ComputerPlayer extends Player{
 					}
 				}
 			} else {
-				System.out.println(mName + "is guessing phrase");
+				System.out.println(mName + " guessed the phrase");
 				String answerToBeGuessed = mBoard.getAnswerKeyString();
 				if(completeSentence(answerToBeGuessed)) {
 					return PlayResult.COMPLETE_SENTENCE;

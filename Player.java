@@ -16,7 +16,7 @@ public abstract class Player {
 	public PlayResult spinWheel() {
 		int spinResult = mWheel.spinWheel();
 		if(spinResult != 1 && spinResult != 2)
-		System.out.println(mName + " could win " + spinResult + " dollers");
+			System.out.println(mName + " could win " + spinResult + " dollers");
 		System.out.println();
 		if(spinResult == 1) {
 			mScoreCard.resetBalence();
@@ -30,49 +30,73 @@ public abstract class Player {
 		} else {
 			System.out.println("What consonant do you want to guess?");
 			String userChar = sc.nextLine();
-			if(!isVowel(userChar)) {
-				if(mBoard.checkBoard(userChar)) {
-					mScoreCard.add(spinResult);
-					System.out.println(mName +" guess is correct");
-					System.out.println(userChar + " is in the phrase");
-					System.out.println(mName + " earned " + spinResult + " dollers");
-					System.out.println(mBoard.getPhraseString());
-					System.out.print("Incorrect Letters: ");
-					System.out.print(mBoard.getIncorrectLettersString());
-					System.out.println();
-					return PlayResult.GAIN_MONEY;
+			while(true) {
+				if(alreadyGuessed(userChar) == false) {
+					if(!isVowel(userChar)) {
+						if(mBoard.checkBoard(userChar)) {
+							mScoreCard.add(spinResult);
+							System.out.println(mName +" guess is correct");
+							System.out.println(userChar + " is in the phrase");
+							System.out.println(mName + " earned " + spinResult + " dollers");
+							System.out.println(mBoard.getPhraseString());
+							System.out.print("Incorrect Letters: ");
+							System.out.print(mBoard.getIncorrectLettersString());
+							System.out.println();
+							return PlayResult.GAIN_MONEY;
+						} else {
+							System.out.println(mName + " guess was not in the phrase");
+							System.out.println(mName + " did not earn " + spinResult + " dollers");
+							System.out.println(mName + " just losted your turn");
+							return PlayResult.LOSE_TURN;
+						}
+					} else {
+						System.out.println("Please guess a consonent");
+					}
 				} else {
-					System.out.println(mName + " guess was not in the phrase");
-					System.out.println(mName + " did not earn " + spinResult + " dollers");
-					System.out.println(mName + " just losted your turn");
-					return PlayResult.LOSE_TURN;
+					System.out.println(userChar + "has already been guessed");
 				}
-			} else {
-				System.out.println("Please guess a vowel");
 			}
 		}
-		return PlayResult.TRY_AGAIN;
 	}
-	public static boolean isVowel(String randomChar) {
+	public boolean alreadyGuessed(String inputChar) {
+		boolean alreadyGuessed = false;
+		for(char a: mBoard.getGuessedChars()) {
+			if(a == inputChar.toUpperCase().charAt(0)) {
+				alreadyGuessed = true;
+				break;
+			}
+		}
+		return alreadyGuessed;
+	}
+
+	public static boolean isVowel(String vowel) {
+		String randomChar = vowel.toUpperCase(); 
 		if(randomChar.charAt(0) == 'A' || randomChar.charAt(0) == 'E' || randomChar.charAt(0) == 'I' || randomChar.charAt(0) == 'O' || randomChar.charAt(0) == 'U') {
 			return true;
 		}
 		return false; 
 	}
 	public BuyVowelResult buyVowel(String selectedVowel) {
-		if(mScoreCard.buyVowel()) {
-			if(mBoard.checkBoard(selectedVowel)) {
-				System.out.println(selectedVowel + " is in the phrase");
-				System.out.println();
-				return BuyVowelResult.IN_PHRASE;
+		while(true) {
+			if(isVowel(selectedVowel)) {
+				if(mScoreCard.buyVowel()) {
+					if(mBoard.checkBoard(selectedVowel)) {
+						System.out.println(selectedVowel + " is in the phrase");
+						System.out.println();
+						return BuyVowelResult.IN_PHRASE;
+					} else {
+						System.out.println(selectedVowel + " is not in phrase");
+						return BuyVowelResult.NOT_IN_PHRASE;
+					}
+				} else {
+					System.out.println( mName + " does not have enough money");
+					return BuyVowelResult.NOT_ENOUGH_MONEY; 
+				}
 			} else {
-				System.out.println(selectedVowel + " is not in phrase");
-				return BuyVowelResult.NOT_IN_PHRASE;
+				System.out.println("Please enter a vowel");
+				selectedVowel = sc.nextLine();
 			}
-		} else {
-			System.out.println( mName + " does not have enough money");
 		}
-		return BuyVowelResult.NOT_ENOUGH_MONEY; 
 	}
 	public boolean completeSentence(String guessedPhrase) {
 		if(mBoard.getAnswerKeyString().equalsIgnoreCase(guessedPhrase)) {
@@ -91,12 +115,13 @@ public abstract class Player {
 	}
 	public void updateRoundAdd() {
 		mScoreCard.addFinalBalence();
+		mScoreCard.resetBalence();
 	}
 	public void updateRoundZero() {
 		mScoreCard.resetBalence();
 	}
-	public int getMoney() {
-		return mScoreCard.getBalence();
+	public int getEndBalence() {
+		return mScoreCard.getFinalBalence();
 	}
-	
+
 }
